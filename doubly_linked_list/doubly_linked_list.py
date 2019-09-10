@@ -10,8 +10,11 @@ class ListNode:
   after this node. Note that this node could already
   have a next node it is point to."""
   def insert_after(self, value):
+    # 1. before detaching following node, save the pointer to it
     current_next = self.next
+    # 2. Now assign .next to the new node, passing in value, prev, and next values
     self.next = ListNode(value, self, current_next)
+    # 3. If a node follows, then reassign the following node's prev to point to the new node
     if current_next:
       current_next.prev = self.next
 
@@ -49,12 +52,14 @@ class DoublyLinkedList:
   def add_to_head(self, value):
     new_node = ListNode(value)
     self.length += 1
+    # if this is the first item in the list
     if not self.head and not self.tail:
       self.head = new_node
       self.tail = new_node
     else:
-      new_node.next = self.head
-      self.head.prev = new_node
+      # a self.head exists so set the new_node's nex and prev values and set it as the new head
+      new_node.next = self.head # set the new node's "next" property to the current head
+      self.head.prev = new_node # 
       self.head = new_node
 
   """Removes the List's current head node, making the
